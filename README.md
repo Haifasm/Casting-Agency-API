@@ -1,6 +1,11 @@
 # Casting Agency
 This is a simple application API for managing movie and actor records in a PostgreSQL database.
 
+##requirments
+
+##db Setup
+createdb agency
+
 ##Auth0 Setup
 1. Create a new Auth0 Account
 2. Select a unique tenant domain
