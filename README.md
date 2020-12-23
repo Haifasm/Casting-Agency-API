@@ -91,6 +91,16 @@ createdb agency
     3. Use Auth0 URI in Step 1 and login withe the user created in previous step
     4. The token will be appended in the URL after login is completed.
 
+### .env variables to set
+
+AUTH0_DOMAIN=""
+API_AUDIENCE=""
+AUTH0_APP_CLIENT_ID=""
+LOCAL_DATABASE=""
+TEST_DATABASE=""
+CASTING_ASSISTANT=""
+CASTING_DIRECTOR=""
+EXECUTIVE_PRODUCER=""
 
 ## Running the server
 
