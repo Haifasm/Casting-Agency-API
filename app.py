@@ -42,7 +42,7 @@ def create_app(test_config=None):
     @app.route('/')
     def home():
         return jsonify({
-            'Welcome': 'Casting Agency API by Haifa Almansour '
+            'Welcome': 'Casting Agency API by Haifa Almansour'
         })
     
     ####Actor
