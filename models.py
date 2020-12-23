@@ -7,7 +7,7 @@ import datetime
 from dotenv import load_dotenv
 load_dotenv()
 
-database_path = os.getenv('HEROKU_DATABASE')
+database_path = os.getenv('LOCAL_DATABASE')
 db = SQLAlchemy()
 
 def setup_db(app, database_path=database_path):

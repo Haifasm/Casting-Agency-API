@@ -1,14 +1,16 @@
-import json
-import logging
-from flask import request, _request_ctx_stack, abort
+from flask import request, _request_ctx_stack
 from functools import wraps
 from jose import jwt
 from urllib.request import urlopen
+import json
+import os
 
+from dotenv import load_dotenv
+load_dotenv()
 
-AUTH0_DOMAIN = 'haifa-coffeeshop.us.auth0.com'
-ALGORITHMS = ['RS256']
-API_AUDIENCE = 'agency'
+AUTH0_DOMAIN = os.getenv('AUTH0_DOMAIN')
+AUTH0_SIGNING_ALGORITHM = ['RS256']
+API_AUDIENCE = os.getenv('API_AUDIENCE')
 
 '''
 AuthError Exception
@@ -22,33 +24,48 @@ class AuthError(Exception):
 
 # Auth Header
 def get_token_auth_header():
-    # raise Exception('Not Implemented')
-    if 'Authorization' not in request.headers:
-        abort(401)
-    auth_header = request.headers['Authorization']
-    header_parts = auth_header.split(' ')
-    if len(header_parts) != 2:
-        abort(401)
-    elif header_parts[0].lower() != 'bearer':
-        abort(401)
+    auth = request.headers.get('Authorization', None)
+    # "Authorization" not in header
+    if not auth:
+        raise AuthError(
+            {
+                'code': 'invalid_header',
+                'description': 'No Authorization in Header.'
+            }, 401)
 
-    return header_parts[1]
+    parts = auth.split()
+    # "Bearer" not in "Authorization"
+    if parts[0].lower() != 'bearer':
+        raise AuthError(
+            {
+                'code': 'invalid_header',
+                'description': 'No Bearer in Authorization.'
+            }, 401)
 
+    elif len(parts) != 2:
+        raise AuthError(
+            {
+                'code': 'invalid_header',
+                'description': 'Iinvalid Header.'
+            }, 401)
+
+    return parts[1]
 
 def check_permissions(permission, payload):
     # Raise an AuthError if permissions are not included in the payload
     if 'permissions' not in payload:
-        raise AuthError({
-            'code': 'invalid_claims',
-            'description': 'Permissions not included in JWT.'
-        }, 400)
+        raise AuthError(
+            {
+                'code': 'invalid_claims',
+                'description': 'Permissions not included in JWT.'
+            }, 400)
     # Raise an AuthError if the requested permission string is not in the payload permissions array
     if permission not in payload['permissions']:
-        raise AuthError({
-            'code': 'unauthorized',
-            'description': 'Permission not found.'
-        }, 401)
-
+        raise AuthError(
+            {
+                'code': 'Unauthorized',
+                'description': 'Permission not found.'
+            }, 401)
     return True
 
 def verify_decode_jwt(token):
@@ -58,13 +75,14 @@ def verify_decode_jwt(token):
     # Data
     unverified_header = jwt.get_unverified_header(token)
     # Choose key 
-    rsa_key = {}
     if 'kid' not in unverified_header:
-        raise AuthError({
-            'code': 'invalid_header',
-            'description': 'Authorization malformed.'
-        }, 401)
+        raise AuthError(
+            {
+                'code': 'invalid_header',
+                'description': 'Authorization malformed.'
+            }, 401)
 
+    rsa_key = {}
     for key in jwks['keys']:
         if key['kid'] == unverified_header['kid']:
             rsa_key = {
@@ -75,39 +93,41 @@ def verify_decode_jwt(token):
                 'e': key['e']
             }
     if rsa_key:
-        # Use key to validate JWT
         try:
-            payload = jwt.decode(
-                token,
-                rsa_key,
-                algorithms=ALGORITHMS,
-                audience=API_AUDIENCE,
-                issuer='https://' + AUTH0_DOMAIN + '/'
-            )
 
+            payload = jwt.decode(token,
+                                 rsa_key,
+                                 algorithms=AUTH0_SIGNING_ALGORITHM,
+                                 audience=API_AUDIENCE,
+                                 issuer='https://' + AUTH0_DOMAIN + '/')
             return payload
 
         except jwt.ExpiredSignatureError:
-            raise AuthError({
-                'code': 'token_expired',
-                'description': 'Token expired.'
-            }, 401)
+            raise AuthError(
+                {
+                    'code': 'token_expired',
+                    'description': 'Token expired.'
+                }, 401)
 
         except jwt.JWTClaimsError:
-            raise AuthError({
-                'code': 'invalid_claims',
-                'description': 'Incorrect claims. Please, check the audience and issuer.'
-            }, 401)
-        except Exception:
-            raise AuthError({
-                'code': 'invalid_header',
-                'description': 'Unable to parse authentication token.'
-            }, 400)
+            raise AuthError(
+                {
+                    'code': 'invalid_claims',
+                    'description': 'Incorrect claims. Please, check the audience and issuer.'
+                }, 401)
 
-    raise AuthError({
-                'code': 'invalid_header',
-                'description': 'Unable to find the appropriate key.'
-            }, 400)
+        except Exception:
+            raise AuthError(
+                {
+                    'code': 'invalid_header',
+                    'description': 'Unable to parse authentication token.'
+                }, 400)
+
+    raise AuthError(
+        {
+            'code': 'invalid_header',
+            'description': 'Unable to find the appropriate key.'
+        }, 400)
 
 def requires_auth(permission=''):
     def requires_auth_decorator(f):
@@ -116,15 +136,13 @@ def requires_auth(permission=''):
             token = get_token_auth_header()
             try:
                 payload = verify_decode_jwt(token)
-            except Exception as e:
-                logging.exception('Error caught in payload')
-                raise AuthError({
-                    'code': 'unauthorized',
-                    'description': 'User does not have the \
-                    required permissions.'
-                }, 401)
+            except:
+                raise AuthError(
+                    {
+                        'code': 'Unauthorized',
+                        'description': 'User doesn\'t have permissions.'
+                    }, 401)
             check_permissions(permission, payload)
-
             return f(payload, *args, **kwargs)
 
         return wrapper

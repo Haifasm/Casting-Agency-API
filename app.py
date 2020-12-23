@@ -42,12 +42,12 @@ def create_app(test_config=None):
     @app.route('/')
     def home():
         return jsonify({
-            'welcome': 'Welcome '
+            'Welcome': 'Casting Agency API by Haifa Almansour '
         })
     
     ####Actor
 
-    # GET actors
+    # GET all actors
     @app.route('/actors', methods=['GET'])
     @requires_auth('get:actor')
     def get_actors(payload):
@@ -61,7 +61,7 @@ def create_app(test_config=None):
             'success': True,
             'actors': results,
             'number_of_actors': len(Actor.query.all())
-        })
+        }), 200
 
     #GET specific actor
     @app.route('/actors/<actor_id>', methods=['GET'])
@@ -78,12 +78,13 @@ def create_app(test_config=None):
 
         return jsonify({
             'success': True,
-            'actor': [actor.format()]})
+            'actor': [actor.format()]
+        }), 200
 
     # POST actor
     @app.route('/actors', methods=['POST'])
-    @requires_auth('post:actor')
-    def create_actor(payload):
+    #@requires_auth('post:actor')
+    def create_actor():
         data = request.get_json()
 
         if not data:
@@ -109,7 +110,8 @@ def create_app(test_config=None):
 
         return jsonify({
             'success': True,
-            'created': actor.id})
+            'created': actor.id
+        }), 201
     
     # PATCH actor
     @app.route('/actors/<actor_id>', methods=['PATCH'])
@@ -148,7 +150,7 @@ def create_app(test_config=None):
             'success': True,
             'updated': selected_actor_id.id,
             'actor': [selected_actor_id.format()]
-        })
+        }), 200
 
     # DELETE actor
     @app.route('/actors/<actor_id>', methods=['DELETE'])
@@ -164,7 +166,10 @@ def create_app(test_config=None):
 
         actor.delete()
 
-        return jsonify({'success': True, 'deleted': actor_id})
+        return jsonify({
+            'success': True,
+            'deleted': actor_id
+        }), 200
 
     #########################################
     # GET movies
@@ -181,7 +186,7 @@ def create_app(test_config=None):
             'success': True,
             'movies': results,
             'number_of_movies': len(Movie.query.all())
-        })
+        }), 200
     
     #GET specific movie
     @app.route('/movies/<movie_id>', methods=['GET'])
@@ -198,7 +203,8 @@ def create_app(test_config=None):
 
         return jsonify({
             'success': True,
-            'movie': [movie.format()]})
+            'movie': [movie.format()]
+        }), 200
     
     # POST movie
     @app.route('/movies', methods=['POST'])
@@ -227,7 +233,8 @@ def create_app(test_config=None):
 
         return jsonify({
             'success': True,
-            'created': movie.id})
+            'created': movie.id
+        }), 201
     
     # PATCH movie
     @app.route('/movies/<movie_id>', methods=['PATCH'])
@@ -264,7 +271,7 @@ def create_app(test_config=None):
             'success': True,
             'updated': selected_movie_id.id,
             'movie': [selected_movie_id.format()]
-        })
+        }), 200
 
     # DELETE movie
     @app.route('/movies/<movie_id>', methods=['DELETE'])
@@ -282,13 +289,56 @@ def create_app(test_config=None):
 
         return jsonify({
             'success': True,
-            'deleted': movie_id})
+            'deleted': movie_id
+        }), 200
+    
+    #Error Handlers
+    @app.errorhandler(400)
+    def bad_request(error):
+        return jsonify({
+            'success': False,
+            'error': 400,
+            'message': 'Bad Request'
+        }), 400
+
+    @app.errorhandler(404)
+    def not_found(error):
+        return jsonify({
+            'success': False,
+            'error': 404,
+            'message': 'Not Found'
+        }), 404
+
+  
+    @app.errorhandler(422)
+    def unprocesable_entity(error):
+        return jsonify({
+            'success': False,
+            'error': 422,
+            'message': 'Unprocessable Entity'
+        }), 422
+
+
+    @app.errorhandler(500)
+    def internal_server_error(error):
+        return jsonify({
+            'success': False,
+            'error': 500,
+            'message': 'Internal Server Error'
+        }), 500
+
+    @app.errorhandler(AuthError)
+    def authentification_failed(AuthError):
+        return jsonify({
+            "success": False,
+            "error": AuthError.status_code,
+            "message": AuthError.error['description']
+        }), AuthError.status_code
+
 
     return app
 
-'''
-postgres://flgwycwwsimszn:0ac3e260635c71409c41f5efe10ccd5b9609bc41343f5ee99bcab94fba544987@ec2-3-216-92-193.compute-1.amazonaws.com:5432/d32ehviholtgt7
-'''
+
 app = create_app()
 
 if __name__ == '__main__':
