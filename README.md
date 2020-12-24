@@ -76,15 +76,14 @@ createdb agency
     ```
      https://{YOUR_DOMAIN}/authorize?audience={API_AUDIENCE}&response_type=token&client_id={AUTHO_CLIENT_ID}&redirect_uri={CALLBACK_URL}
     ```
-    In my case I will replace the following according to my setup as follows:
-        - {YOUR_DOMAIN} = haifa-coffeeshop.us.auth0.com/
-        - {API_AUDIENCE} = agency
-        - {AUTHO_CLIENT_ID} = LaOEzzJTZtOfhsUt6JI2EZ7wWE8wv7bY
-        - {CALLBACK_URL} = http://127.0.0.1:5000/
-    Which will generate the following URL:
-    `https://haifa-coffeeshop.us.auth0.com/authorize?audience=agency&response_type=token&client_id=LaOEzzJTZtOfhsUt6JI2EZ7wWE8wv7bY&redirect_uri=http://127.0.0.1:5000/`
-    
-    2. Create user in Auth0 and assign role
+        In my case I will replace the following according to my setup as follows:
+            - {YOUR_DOMAIN} = haifa-coffeeshop.us.auth0.com/
+            - {API_AUDIENCE} = agency
+            - {AUTHO_CLIENT_ID} = LaOEzzJTZtOfhsUt6JI2EZ7wWE8wv7bY
+            - {CALLBACK_URL} = http://127.0.0.1:5000/
+        Which will generate the following URL:
+        `https://haifa-coffeeshop.us.auth0.com/authorize?audience=agency&response_type=token&client_id=LaOEzzJTZtOfhsUt6JI2EZ7wWE8wv7bY&redirect_uri=http://127.0.0.1:5000/`
+    2. Create user in Auth0 and assign role.
     3. Use Auth0 URI in Step 1 and login withe the user created in previous step
     4. The token will be appended in the URL after login is completed.
 
