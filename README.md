@@ -83,8 +83,9 @@ createdb agency
             - {CALLBACK_URL} = http://127.0.0.1:5000/
         
         Which will generate the following URL:
-        `https://haifa-coffeeshop.us.auth0.com/authorize?audience=agency&response_type=token&client_id=LaOEzzJTZtOfhsUt6JI2EZ7wWE8wv7bY&redirect_uri=http://127.0.0.1:5000/`
         
+        `https://haifa-coffeeshop.us.auth0.com/authorize?audience=agency&response_type=token&client_id=LaOEzzJTZtOfhsUt6JI2EZ7wWE8wv7bY&redirect_uri=http://127.0.0.1:5000/`
+
     2. Create user in Auth0 and assign role.
     3. Use Auth0 URI in Step 1 and login withe the user created in previous step
     4. The token will be appended in the URL after login is completed.
