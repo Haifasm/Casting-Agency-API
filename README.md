@@ -137,47 +137,101 @@ python3 test_app.py
 
 Returns a list of all actors.
  ```
- curl -X GET https://aw-casting-agency-api.herokuapp.com/all_actors \
- -H 'Authorization: Bearer <INSERT_YOUR_TOKEN>'
+ curl -X GET https://haifa-casting-agency.herokuapp.com/actors\
+ -H 'Authorization: Bearer <TOKEN>'
+```
+
+### GET '/movies'
+
+Returns a list of all movies.
+ ```
+ curl -X GET https://haifa-casting-agency.herokuapp.com/movies\
+ -H 'Authorization: Bearer <TOKEN>'
 ```
 
 ### Get '/actors/<actor_id>'
 
 Returns the actor with the given actor_id.
- ```
-l
 ```
+curl -X GET https://haifa-casting-agency.herokuapp.com/actors/1\
+ -H 'Authorization: Bearer <TOKEN>'
+```
+
+### Get '/movies/<movie_id>'
+
+Returns the movie with the given movie_id.
+```
+curl -X GET https://haifa-casting-agency.herokuapp.com/movies/1\
+ -H 'Authorization: Bearer <TOKEN>'
+```
+
 ### Post '/actors'
 
 Add actor to the database.
- ```
-  curl -X POST https://aw-casting-agency-api.herokuapp.com/actor \
-   -H 'Authorization: Bearer <INSERT_YOUR_TOKEN>' \
-   -H 'Content-Type: application/json' \
-   -d '{"id" : 1,
-    "name" : 'Leonardo DiCaprio',
-    "Age": 45,
-    "gender" : 'Male',
-    "movie_id": 1,
-    "image_link": "https://d17zbv0kd7tyek.cloudfront.net/wp-content/uploads/2015/06/leonardo-dicaprio-fb.jpg"
-    }'
+Attributes:
+- name
+- age
+- gender
+- description
+- image_link
+note: description and image_link are optional.
+
 ```
+  curl -X POST https://haifa-casting-agency.herokuapp.com/actors \
+   -H 'Authorization: Bearer <TOKEN>'\
+  -H 'Content-Type: application/json' \
+  -d '{"name": "Haifa", "age": "22", "gender": "Female"}'
+```
+### Post '/movies'
+
+Add movie to the database.
+Attributes:
+- title
+- release
+- description
+- image_link
+note: description and image_link are optional.
+
+```
+  curl -X POST https://haifa-casting-agency.herokuapp.com/movies \
+   -H 'Authorization: Bearer <TOKEN>'\
+  -H 'Content-Type: application/json' \
+  -d '{"title": "The Imitation Game", "release": "2014-12-12", "description": "Alan Turing, a British mathematician, joins the cryptography team to decipher the German enigma code.", "image_link":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQ5vi9xgRkP0nk5aRn8tcGEGRnOQyM-aAS1ldqfQSi_69V1yfU"}'
+```
+
 ### Patch '/actors/<actor_id>'
 
 Update actor.
  ```
-  curl -X PATCH https://aw-casting-agency-api.herokuapp.com/actor/<int:id> \
-   -H 'Authorization: Bearer <INSERT_YOUR_TOKEN>' \
+  curl -X PATCH https://haifa-casting-agency.herokuapp.com/actors/1 \
+   -H 'Authorization: Bearer <TOKEN>' \
    -H 'Content-Type: application/json' \
+   -d '{"age": "25"}'
+```
+
+### Patch '/movies/<movie_id>'
+
+Update movie.
+ ```
+  curl -X PATCH https://haifa-casting-agency.herokuapp.com/movies/1 \
+   -H 'Authorization: Bearer <TOKEN>'\
+   -H 'Content-Type: application/json' \
+   -d '{"release": "2012-12-12"}'
 ```
 ### Delete '/actors/<actor_id>'
 
 Delete actor.
  ```
-  curl -X DELETE https://aw-casting-agency-api.herokuapp.com/actor/<int:id> \
-   -H 'Authorization: Bearer <INSERT_YOUR_TOKEN>'
+  curl -X DELETE https://haifa-casting-agency.herokuapp.com/actors/1 \
+   -H 'Authorization: Bearer <TOKEN>'
 ```
-;;;;;;;;
+### Delete '/movies/<movie_id>'
+
+Delete movie.
+ ```
+  curl -X DELETE https://haifa-casting-agency.herokuapp.com/movies/1 \
+   -H 'Authorization: Bearer <TOKEN>'
+```
 
 ## Authors
 - Haifa Almansour, Udacity Full Stack Web Developer Nanodegree Student.
