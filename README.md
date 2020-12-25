@@ -2,7 +2,7 @@
 
 This is the last project of the [Full-Stack Developer Nanodegree](https://www.udacity.com/course/full-stack-web-developer-nanodegree--nd0044).
 
-It covers following technical topics:
+It covers the following technical topics:
 - Database modeling with PostgreSQL & SQLAlchemy.
 - Perform CRUD(create, read, update and delete) operations on database with Flask.
 - Automated testing using Unittest.
@@ -75,6 +75,7 @@ curl -X GET https://haifa-casting-agency.herokuapp.com/movies/1\
 ### Post '/actors'
 
 Add actor to the database.
+
 Attributes:
 - name
 - age
@@ -82,7 +83,7 @@ Attributes:
 - description
 - image_link
 
-note: description and image_link are optional.
+description and image_link are optional.
 
 <img width="944" alt="Screen Shot 2020-12-25 at 6 49 29 PM" src="https://user-images.githubusercontent.com/51233872/103139298-bb62b800-46eb-11eb-966f-fa8290773ca6.png">
 
@@ -95,14 +96,16 @@ note: description and image_link are optional.
 ### Post '/movies'
 
 Add movie to the database.
+
 Attributes:
 - title
 - release
 - description
 - image_link
-note: description and image_link are optional.
 
-<img width="1105" alt="Screen Shot 2020-12-25 at 7 00 56 PM" src="https://user-images.githubusercontent.com/51233872/103139395-b94d2900-46ec-11eb-86bf-d51392cf0d5b.png">
+description and image_link are optional.
+
+<img width="944" alt="Screen Shot 2020-12-25 at 6 47 24 PM" src="https://user-images.githubusercontent.com/51233872/103139245-514a1300-46eb-11eb-89d6-f56664cf29c4.png">
 
 ```
   curl -X POST https://haifa-casting-agency.herokuapp.com/movies \
@@ -110,11 +113,10 @@ note: description and image_link are optional.
   -H 'Content-Type: application/json' \
   -d '{"title": "The Imitation Game", "release": "2014-12-12", "description": "Alan Turing, a British mathematician, joins the cryptography team to decipher the German enigma code.", "image_link":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQ5vi9xgRkP0nk5aRn8tcGEGRnOQyM-aAS1ldqfQSi_69V1yfU"}'
 ```
-<img width="944" alt="Screen Shot 2020-12-25 at 6 47 24 PM" src="https://user-images.githubusercontent.com/51233872/103139245-514a1300-46eb-11eb-89d6-f56664cf29c4.png">
 
 ### Patch '/actors/<actor_id>'
 
-Update actor.
+Update attributes of the actor with the given actor_id.
 
 <img width="1105" alt="Screen Shot 2020-12-25 at 6 54 11 PM" src="https://user-images.githubusercontent.com/51233872/103139284-9b32f900-46eb-11eb-99bf-4e4f0c12265e.png">
 
@@ -127,7 +129,7 @@ Update actor.
 
 ### Patch '/movies/<movie_id>'
 
-Update movie.
+Update attributes of the movie with the given movie_id.
 
 <img width="1105" alt="Screen Shot 2020-12-25 at 7 04 13 PM" src="https://user-images.githubusercontent.com/51233872/103139374-8dca3e80-46ec-11eb-8d49-e31fef8320d7.png">
 
@@ -139,7 +141,7 @@ Update movie.
 ```
 ### Delete '/actors/<actor_id>'
 
-Delete actor.
+Delete the actor with the given actor_id.
 
 <img width="1105" alt="Screen Shot 2020-12-25 at 6 57 05 PM" src="https://user-images.githubusercontent.com/51233872/103139364-82771300-46ec-11eb-91af-1a06cd6d0c5a.png">
 
@@ -149,7 +151,7 @@ Delete actor.
 ```
 ### Delete '/movies/<movie_id>'
 
-Delete movie.
+Delete the movie with the given movie_id.
 
 <img width="1105" alt="Screen Shot 2020-12-25 at 7 05 52 PM" src="https://user-images.githubusercontent.com/51233872/103139377-94f14c80-46ec-11eb-8705-e1888bf801cd.png">
 
@@ -245,16 +247,32 @@ createdb agency
     3. Use Auth0 URI in Step 1 and login withe the user created in previous step
     4. The token will be appended in the URL after login is completed.
 
-### .env variables to set
+### setup.sh
 
-AUTH0_DOMAIN=""
-API_AUDIENCE=""
-AUTH0_APP_CLIENT_ID=""
-LOCAL_DATABASE=""
-TEST_DATABASE=""
-CASTING_ASSISTANT=""
-CASTING_DIRECTOR=""
-EXECUTIVE_PRODUCER=""
+Replace the values of this file to reflect your setup.
+Make sure to have no spaces before and after =.
+
+```bash
+export AUTH0_DOMAIN=
+export API_AUDIENCE=
+export AUTH0_APP_CLIENT_ID=
+
+#databases
+export HEROKU_DATABASE=
+export LOCAL_DATABASE=
+export TEST_DATABASE=
+
+#tokens
+export CASTING_ASSISTANT=
+export EXECUTIVE_PRODUCER=
+export CASTING_DIRECTOR=
+```
+
+To export the credentials as environment variable, after activating your environment run
+
+```bash
+source setup.sh
+```
 
 ## Running the server
 
@@ -276,6 +294,7 @@ flask run --reload
 The `--reload` flag will detect file changes and restart the server automatically.
 
 ## Running tests
+
 It is reccomended to have a seperate database for testing.
 ```bash
 createdb agency_test
@@ -286,5 +305,6 @@ python3 test_app.py
 ```
 
 ## Authors
+
 - Haifa Almansour, Udacity Full Stack Web Developer Nanodegree Student.
 - Udacity Team.
