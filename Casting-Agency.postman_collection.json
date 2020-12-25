@@ -1,0 +1,434 @@
+{
+	"info": {
+		"_postman_id": "47b6df3d-d525-4685-b16f-828ec3b8f781",
+		"name": "Casting-Agency",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "get all actors",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://haifa-casting-agency.herokuapp.com/actors",
+					"protocol": "https",
+					"host": [
+						"haifa-casting-agency",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"actors"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get actor",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://haifa-casting-agency.herokuapp.com/actors/3",
+					"protocol": "https",
+					"host": [
+						"haifa-casting-agency",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"actors",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "post actor",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Benedict Cumberbatch\",\n    \"age\": \"44\",\n    \"gender\": \"Male\",\n    \"description\": \"Benedict Timothy Carlton Cumberbatch CBE is an English actor. A graduate of the Victoria University of Manchester, he continued his training at the London Academy of Music and Dramatic Art, obtaining a Master of Arts in Classical Acting.\",\n    \"image_link\": \"https://www.gstatic.com/tv/thumb/persons/275459/275459_v9_bb.jpg\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://haifa-casting-agency.herokuapp.com/actors",
+					"protocol": "https",
+					"host": [
+						"haifa-casting-agency",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"actors"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "post actor 2",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Leonardo DiCaprio\",\n    \"age\": \"46\",\n    \"gender\": \"Male\",\n    \"description\": \"American actor, film producer and environmentalist. He has often played unconventional roles, particularly in biopics and period films. As of 2019, his films have grossed US$7.2 billion worldwide, and he has placed eight times in annual rankings of the highest-paid actors in the world.\",\n    \"image_link\": \"https://www.gstatic.com/tv/thumb/persons/435/435_v9_bc.jpg\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://haifa-casting-agency.herokuapp.com/actors",
+					"protocol": "https",
+					"host": [
+						"haifa-casting-agency",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"actors"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "patch actor",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"description\": \"English actor. A graduate of the Victoria University of Manchester, he continued his training at the London Academy of Music and Dramatic Art, obtaining a Master of Arts in Classical Acting.\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://haifa-casting-agency.herokuapp.com/actors/3",
+					"protocol": "https",
+					"host": [
+						"haifa-casting-agency",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"actors",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete actor",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://haifa-casting-agency.herokuapp.com/actors/5",
+					"protocol": "https",
+					"host": [
+						"haifa-casting-agency",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"actors",
+						"5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "post actor 3",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Haifa Almasnour\",\n    \"age\": \"22\",\n    \"gender\": \"Female\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://haifa-casting-agency.herokuapp.com/actors",
+					"protocol": "https",
+					"host": [
+						"haifa-casting-agency",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"actors"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "post movie",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"The Imitation Game\",\n    \"release\": \"2014-12-12\",\n    \"description\": \"Alan Turing, a British mathematician, joins the cryptography team to decipher the German enigma code.\",\n    \"image_link\":\"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQ5vi9xgRkP0nk5aRn8tcGEGRnOQyM-aAS1ldqfQSi_69V1yfU\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://haifa-casting-agency.herokuapp.com/movies",
+					"protocol": "https",
+					"host": [
+						"haifa-casting-agency",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"movies"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "post movie 2",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"The Wolf of Wall Street\",\n    \"release\": \"2013-12-12\",\n    \"description\": \"Introduced to life in the fast lane through stockbroking, Jordan Belfort takes a hit after a Wall Street crash. He teams up with Donnie Azoff, cheating his way to the top as his relationships slide.\",\n    \"image_link\":\"https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTm52BWbxXmwOpfz5rmx0BNBj79kSQoGpYPq4TVt07Jel5En6aC\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://haifa-casting-agency.herokuapp.com/movies",
+					"protocol": "https",
+					"host": [
+						"haifa-casting-agency",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"movies"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "patch movie",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"image_link\":\"https://iamyourtargetdemographic.files.wordpress.com/2013/12/wolf-of-wall-street.jpg\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://haifa-casting-agency.herokuapp.com/movies/3",
+					"protocol": "https",
+					"host": [
+						"haifa-casting-agency",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"movies",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "post movie 2 Copy 2",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://haifa-casting-agency.herokuapp.com/movies/4",
+					"protocol": "https",
+					"host": [
+						"haifa-casting-agency",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"movies",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all movies",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://haifa-casting-agency.herokuapp.com/movies",
+					"protocol": "https",
+					"host": [
+						"haifa-casting-agency",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"movies"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get movie",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://haifa-casting-agency.herokuapp.com/movies/2",
+					"protocol": "https",
+					"host": [
+						"haifa-casting-agency",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"movies",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "post movie 2 Copy",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"Haifa Almansour\",\n    \"release\": \"2020-12-12\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://haifa-casting-agency.herokuapp.com/movies",
+					"protocol": "https",
+					"host": [
+						"haifa-casting-agency",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"movies"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjFJdC1KX2pKU0M1UzdsbTV1bHRaTCJ9.eyJpc3MiOiJodHRwczovL2hhaWZhLWNvZmZlZXNob3AudXMuYXV0aDAuY29tLyIsInN1YiI6ImF1dGgwfDVmZTYyMTM5MDgyODRiMDA2YmI1MjY1NiIsImF1ZCI6ImFnZW5jeSIsImlhdCI6MTYwODkxNzQzNywiZXhwIjoxNjA4OTI0NjM3LCJhenAiOiJMYU9FenpKVFp0T2Zoc1V0NkpJMkVaN3dXRTh3djdiWSIsInNjb3BlIjoiIiwicGVybWlzc2lvbnMiOlsiZGVsZXRlOmFjdG9yIiwiZGVsZXRlOm1vdmllIiwiZ2V0OmFjdG9yIiwiZ2V0Om1vdmllIiwicGF0Y2g6YWN0b3IiLCJwYXRjaDptb3ZpZSIsInBvc3Q6YWN0b3IiLCJwb3N0Om1vdmllIl19.GxlQfOAlPT95WJc7n7jJWlMeaFY23Rq67XfWeBBEXHJM3XK76trS0jDSZf0QcexqL8a8I24r7qIva7xrgtyVLBzDYi_gGpF4pgr8nx-wyhCfU3woJDrs6I1axOHeScqFZV1EPeXl04GMS8aPZXWHCp7yS2-ImeyOKQYoplrt3uJ7XFOrGrBe1xHyXA6SFez-K6JNAXdPkA3rpuqjZyIvzGfrKPhLYzBelsHmhFONuIRmWMJHB0pii2qa8eOlHBmLVBi0TvYZWnffzBRUrbwqYYxym9NdaJKoQhbYC6dHR0Ne2jVGKIEHHmrStFS5dI9kwMFpaF2i_aB78YT5uBvRGA",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
