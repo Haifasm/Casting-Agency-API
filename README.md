@@ -57,7 +57,7 @@ Returns the actor with the given actor_id.
 <img width="1105" alt="Screen Shot 2020-12-25 at 8 31 55 PM" src="https://user-images.githubusercontent.com/51233872/103139750-7bea9a80-46f0-11eb-9b3a-c8bc228a8a10.png">
 
 ```
-curl -X GET https://haifa-casting-agency.herokuapp.com/actors/1\
+curl -X GET https://haifa-casting-agency.herokuapp.com/actors/3\
  -H 'Authorization: Bearer <TOKEN>'
 ```
 
@@ -68,7 +68,7 @@ Returns the movie with the given movie_id.
 <img width="1105" alt="Screen Shot 2020-12-25 at 8 33 12 PM" src="https://user-images.githubusercontent.com/51233872/103139754-80af4e80-46f0-11eb-9521-7793004f32cc.png">
 
 ```
-curl -X GET https://haifa-casting-agency.herokuapp.com/movies/1\
+curl -X GET https://haifa-casting-agency.herokuapp.com/movies/2\
  -H 'Authorization: Bearer <TOKEN>'
 ```
 
@@ -91,7 +91,11 @@ description and image_link are optional.
   curl -X POST https://haifa-casting-agency.herokuapp.com/actors \
    -H 'Authorization: Bearer <TOKEN>'\
   -H 'Content-Type: application/json' \
-  -d '{"name": "Haifa", "age": "22", "gender": "Female"}'
+  -d '{"name": "Leonardo DiCaprio",
+    "age": "46",
+    "gender": "Male",
+    "description": "American actor, film producer and environmentalist. He has often played unconventional roles, particularly in biopics and period films. As of 2019, his films have grossed US$7.2 billion worldwide, and he has placed eight times in annual rankings of the highest-paid actors in the world.",
+    "image_link": "https://www.gstatic.com/tv/thumb/persons/435/435_v9_bc.jpg"}'
 ```
 ### Post '/movies'
 
@@ -121,10 +125,10 @@ Update attributes of the actor with the given actor_id.
 <img width="1105" alt="Screen Shot 2020-12-25 at 6 54 11 PM" src="https://user-images.githubusercontent.com/51233872/103139284-9b32f900-46eb-11eb-99bf-4e4f0c12265e.png">
 
  ```
-  curl -X PATCH https://haifa-casting-agency.herokuapp.com/actors/1 \
+  curl -X PATCH https://haifa-casting-agency.herokuapp.com/actors/3 \
    -H 'Authorization: Bearer <TOKEN>' \
    -H 'Content-Type: application/json' \
-   -d '{"age": "25"}'
+   -d '{"description": "English actor. A graduate of the Victoria University of Manchester, he continued his training at the London Academy of Music and Dramatic Art, obtaining a Master of Arts in Classical Acting."}'
 ```
 
 ### Patch '/movies/<movie_id>'
@@ -134,10 +138,10 @@ Update attributes of the movie with the given movie_id.
 <img width="1105" alt="Screen Shot 2020-12-25 at 7 04 13 PM" src="https://user-images.githubusercontent.com/51233872/103139374-8dca3e80-46ec-11eb-8d49-e31fef8320d7.png">
 
  ```
-  curl -X PATCH https://haifa-casting-agency.herokuapp.com/movies/1 \
+  curl -X PATCH https://haifa-casting-agency.herokuapp.com/movies/3 \
    -H 'Authorization: Bearer <TOKEN>'\
    -H 'Content-Type: application/json' \
-   -d '{"release": "2012-12-12"}'
+   -d '{"image_link":"https://iamyourtargetdemographic.files.wordpress.com/2013/12/wolf-of-wall-street.jpg"}'
 ```
 ### Delete '/actors/<actor_id>'
 
@@ -146,7 +150,7 @@ Delete the actor with the given actor_id.
 <img width="1105" alt="Screen Shot 2020-12-25 at 6 57 05 PM" src="https://user-images.githubusercontent.com/51233872/103139364-82771300-46ec-11eb-91af-1a06cd6d0c5a.png">
 
  ```
-  curl -X DELETE https://haifa-casting-agency.herokuapp.com/actors/1 \
+  curl -X DELETE https://haifa-casting-agency.herokuapp.com/actors/5 \
    -H 'Authorization: Bearer <TOKEN>'
 ```
 ### Delete '/movies/<movie_id>'
@@ -156,7 +160,7 @@ Delete the movie with the given movie_id.
 <img width="1105" alt="Screen Shot 2020-12-25 at 7 05 52 PM" src="https://user-images.githubusercontent.com/51233872/103139377-94f14c80-46ec-11eb-8705-e1888bf801cd.png">
 
  ```
-  curl -X DELETE https://haifa-casting-agency.herokuapp.com/movies/1 \
+  curl -X DELETE https://haifa-casting-agency.herokuapp.com/movies/4 \
    -H 'Authorization: Bearer <TOKEN>'
 ```
 
