@@ -23,8 +23,8 @@ def create_app(test_config=None):
         response.headers.add('Access-Control-Allow-Methods',
                              'GET,PUT,POST,DELETE,OPTIONS')
         return response
-    
-    def paginate(request, selection): 
+
+    def paginate(request, selection):
         # selection will be either actor or movie to be able to call .format()
 
         # use request to get the page number or 1 if no current page
@@ -44,15 +44,15 @@ def create_app(test_config=None):
         return jsonify({
             'Welcome': 'Casting Agency API by Haifa Almansour'
         })
-    
-    ####Actor
+
+    # Actor
 
     # GET all actors
     @app.route('/actors', methods=['GET'])
     @requires_auth('get:actor')
     def get_actors(payload):
         actors = Actor.query.order_by(Actor.id).all()
-        results = paginate(request,actors)
+        results = paginate(request, actors)
 
         if len(results) == 0:
             abort(404, {'message': 'No actors found.'})
@@ -63,7 +63,7 @@ def create_app(test_config=None):
             'number_of_actors': len(Actor.query.all())
         }), 200
 
-    #GET specific actor
+    # GET specific actor
     @app.route('/actors/<actor_id>', methods=['GET'])
     @requires_auth('get:actor')
     def get_actor(payload, actor_id):
@@ -83,7 +83,7 @@ def create_app(test_config=None):
 
     # POST actor
     @app.route('/actors', methods=['POST'])
-    #@requires_auth('post:actor')
+    # @requires_auth('post:actor')
     def create_actor():
         data = request.get_json()
 
@@ -95,7 +95,6 @@ def create_app(test_config=None):
         gender = data.get('gender', None)
         description = data.get('description', None)
         image_link = data.get('image_link', None)
-     
 
         # validate parameters, description and image_link are optional
         if not name:
@@ -105,20 +104,26 @@ def create_app(test_config=None):
         if not gender:
             abort(422, {'message': 'Error: Missing gender.'})
 
-        actor = Actor(name=name, age=age, gender=gender, description=description, image_link=image_link)
+        actor = Actor(
+            name=name,
+            age=age,
+            gender=gender,
+            description=description,
+            image_link=image_link)
         actor.create()
 
         return jsonify({
             'success': True,
             'created': actor.id
         }), 201
-    
+
     # PATCH actor
     @app.route('/actors/<actor_id>', methods=['PATCH'])
     @requires_auth('patch:actor')
-    def update_actor(payload, actor_id): 
+    def update_actor(payload, actor_id):
         data = request.get_json()
-        selected_actor_id = Actor.query.filter(Actor.id == actor_id).one_or_none()
+        selected_actor_id = Actor.query.filter(
+            Actor.id == actor_id).one_or_none()
 
         # validate
         if not actor_id:
@@ -126,9 +131,12 @@ def create_app(test_config=None):
         if not data:
             abort(400, {'message': 'Invalid JSON data.'})
         if not selected_actor_id:
-            abort(404, {'message': 'Actor with that id was not found'.format(actor_id)})
+            abort(
+                404, {
+                    'message': 'Actor with that id '
+                    'was not found'.format(actor_id)})
 
-        # get updated variables from data 
+        # get updated variables from data
         name = data.get('name', selected_actor_id.name)
         age = data.get('age', selected_actor_id.age)
         gender = data.get('gender', selected_actor_id.gender)
@@ -155,7 +163,7 @@ def create_app(test_config=None):
     # DELETE actor
     @app.route('/actors/<actor_id>', methods=['DELETE'])
     @requires_auth('delete:actor')
-    def delete_actor(payload, actor_id): 
+    def delete_actor(payload, actor_id):
         actor = Actor.query.filter(Actor.id == actor_id).one_or_none()
 
         if not actor_id:
@@ -177,7 +185,7 @@ def create_app(test_config=None):
     @requires_auth('get:movie')
     def get_movies(payload):
         movies = Movie.query.order_by(Movie.id).all()
-        results = paginate(request,movies)
+        results = paginate(request, movies)
 
         if len(results) == 0:
             abort(404, {'message': 'No movies found.'})
@@ -187,8 +195,8 @@ def create_app(test_config=None):
             'movies': results,
             'number_of_movies': len(Movie.query.all())
         }), 200
-    
-    #GET specific movie
+
+    # GET specific movie
     @app.route('/movies/<movie_id>', methods=['GET'])
     @requires_auth('get:movie')
     def get_movie(payload, movie_id):
@@ -205,7 +213,7 @@ def create_app(test_config=None):
             'success': True,
             'movie': [movie.format()]
         }), 200
-    
+
     # POST movie
     @app.route('/movies', methods=['POST'])
     @requires_auth('post:movie')
@@ -219,7 +227,6 @@ def create_app(test_config=None):
         release = data.get('release', None)
         description = data.get('description', None)
         image_link = data.get('image_link', None)
-     
 
         # validate parameters, description and image_link are optional
         if not title:
@@ -227,21 +234,25 @@ def create_app(test_config=None):
         if not release:
             abort(422, {'message': 'Error: Missing release.'})
 
-
-        movie = Movie(title=title, release=release, description=description, image_link=image_link)
+        movie = Movie(
+            title=title,
+            release=release,
+            description=description,
+            image_link=image_link)
         movie.create()
 
         return jsonify({
             'success': True,
             'created': movie.id
         }), 201
-    
+
     # PATCH movie
     @app.route('/movies/<movie_id>', methods=['PATCH'])
     @requires_auth('patch:movie')
     def update_movie(payload, movie_id):
         data = request.get_json()
-        selected_movie_id = Movie.query.filter(Movie.id == movie_id).one_or_none()
+        selected_movie_id = Movie.query.filter(
+            Movie.id == movie_id).one_or_none()
 
         # validate
         if not movie_id:
@@ -249,9 +260,12 @@ def create_app(test_config=None):
         if not data:
             abort(400, {'message': 'Invalid JSON data.'})
         if not selected_movie_id:
-            abort(404, {'message': 'Movie with that id was not found'.format(movie_id)})
+            abort(
+                404, {
+                    'message': 'Movie with that id'
+                    ' was not found'.format(movie_id)})
 
-        # get updated variables from data 
+        # get updated variables from data
         title = data.get('title', selected_movie_id.title)
         release = data.get('release', selected_movie_id.release)
         description = data.get('description', selected_movie_id.description)
@@ -291,8 +305,8 @@ def create_app(test_config=None):
             'success': True,
             'deleted': movie_id
         }), 200
-    
-    #Error Handlers
+
+    # Error Handlers
     @app.errorhandler(400)
     def bad_request(error):
         return jsonify({
@@ -309,7 +323,6 @@ def create_app(test_config=None):
             'message': 'Not Found'
         }), 404
 
-  
     @app.errorhandler(422)
     def unprocesable_entity(error):
         return jsonify({
@@ -317,7 +330,6 @@ def create_app(test_config=None):
             'error': 422,
             'message': 'Unprocessable Entity'
         }), 422
-
 
     @app.errorhandler(500)
     def internal_server_error(error):
@@ -335,7 +347,6 @@ def create_app(test_config=None):
             "message": AuthError.error['description']
         }), AuthError.status_code
 
-
     return app
 
 
@@ -344,5 +355,3 @@ app = create_app()
 if __name__ == '__main__':
     app.debug = True
     app.run(host='0.0.0.0', port=8080, debug=True)
-
-

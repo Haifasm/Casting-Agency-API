@@ -16,6 +16,8 @@ API_AUDIENCE = os.getenv('API_AUDIENCE')
 AuthError Exception
 A standardized way to communicate auth failure modes
 '''
+
+
 class AuthError(Exception):
     def __init__(self, error, status_code):
         self.error = error
@@ -51,6 +53,7 @@ def get_token_auth_header():
 
     return parts[1]
 
+
 def check_permissions(permission, payload):
     # Raise an AuthError if permissions are not included in the payload
     if 'permissions' not in payload:
@@ -59,7 +62,8 @@ def check_permissions(permission, payload):
                 'code': 'invalid_claims',
                 'description': 'Permissions not included in JWT.'
             }, 400)
-    # Raise an AuthError if the requested permission string is not in the payload permissions array
+    # Raise an AuthError if the requested permission string is not in the
+    # payload permissions array
     if permission not in payload['permissions']:
         raise AuthError(
             {
@@ -68,13 +72,14 @@ def check_permissions(permission, payload):
             }, 401)
     return True
 
+
 def verify_decode_jwt(token):
     # Public key from Auth0
     jsonurl = urlopen(f'https://{AUTH0_DOMAIN}/.well-known/jwks.json')
     jwks = json.loads(jsonurl.read())
     # Data
     unverified_header = jwt.get_unverified_header(token)
-    # Choose key 
+    # Choose key
     if 'kid' not in unverified_header:
         raise AuthError(
             {
@@ -113,7 +118,8 @@ def verify_decode_jwt(token):
             raise AuthError(
                 {
                     'code': 'invalid_claims',
-                    'description': 'Incorrect claims. Please, check the audience and issuer.'
+                    'description': 'Incorrect claims.'
+                    'Please, check the audience and issuer.'
                 }, 401)
 
         except Exception:
@@ -129,6 +135,7 @@ def verify_decode_jwt(token):
             'description': 'Unable to find the appropriate key.'
         }, 400)
 
+
 def requires_auth(permission=''):
     def requires_auth_decorator(f):
         @wraps(f)
@@ -136,7 +143,7 @@ def requires_auth(permission=''):
             token = get_token_auth_header()
             try:
                 payload = verify_decode_jwt(token)
-            except:
+            except BaseException:
                 raise AuthError(
                     {
                         'code': 'Unauthorized',

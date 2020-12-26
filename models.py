@@ -11,6 +11,7 @@ load_dotenv()
 database_path = os.getenv('LOCAL_DATABASE')
 db = SQLAlchemy()
 
+
 def setup_db(app, database_path=database_path):
     app.config["SQLALCHEMY_DATABASE_URI"] = database_path
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
@@ -37,7 +38,7 @@ class Movie(db.Model):
     def delete(self):
         db.session.delete(self)
         db.session.commit()
-    
+
     def format(self):
         return {
             'id': self.id,
@@ -46,6 +47,7 @@ class Movie(db.Model):
             'description': self.description,
             'image_link': self.image_link
         }
+
 
 class Actor(db.Model):
     __tablename__ = 'Actor'
@@ -66,7 +68,7 @@ class Actor(db.Model):
     def delete(self):
         db.session.delete(self)
         db.session.commit()
-    
+
     def format(self):
         return {
             'id': self.id,
